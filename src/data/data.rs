@@ -26,9 +26,22 @@ impl Categories {
         self.categories.push(category);
     }
 
-    pub fn get_categories(&self, count: i32) -> Vec<HashMap<String, Value>> {
+    pub fn get_categories(&self, mut count: i32) -> Vec<HashMap<String, Value>> {
+        if count < 0 {
+            count = self.categories.len() as i32 - count.abs();
+            if count < 0 {
+                count = 0;
+            }
+        }
+        if count > self.categories.len() as i32 {
+            count = count.min(self.categories.len() as i32);
+        }
         log::info!("data.rs::get_categories - count: {:?}", count);
-        self.categories[..count as usize].to_vec()
+        if self.categories.len() as i32 <= count && self.categories.len() as i32 > 0 {
+            self.categories.to_vec()
+        } else {
+            self.categories[..count as usize].to_vec()
+        }
     }
 
     pub fn get_category(&self, index: i32) -> &HashMap<String, Value> {
@@ -80,13 +93,91 @@ impl CategoryDetails {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::TOTAL_CATEGORIES;
 
     #[test]
     fn test_categories() {
         let categories = Categories::new();
+        assert_eq!(categories.get_categories(-16).len(), 0);
+        assert_eq!(categories.get_categories(-15).len(), 0);
+        assert_eq!(
+            categories.get_categories(-14).len(),
+            TOTAL_CATEGORIES as usize - 14
+        );
+        assert_eq!(
+            categories.get_categories(-13).len(),
+            TOTAL_CATEGORIES as usize - 13
+        );
+        assert_eq!(
+            categories.get_categories(-12).len(),
+            TOTAL_CATEGORIES as usize - 12
+        );
+        assert_eq!(
+            categories.get_categories(-11).len(),
+            TOTAL_CATEGORIES as usize - 11
+        );
+        assert_eq!(
+            categories.get_categories(-10).len(),
+            TOTAL_CATEGORIES as usize - 10
+        );
+        assert_eq!(
+            categories.get_categories(-9).len(),
+            TOTAL_CATEGORIES as usize - 9
+        );
+        assert_eq!(
+            categories.get_categories(-8).len(),
+            TOTAL_CATEGORIES as usize - 8
+        );
+        assert_eq!(
+            categories.get_categories(-7).len(),
+            TOTAL_CATEGORIES as usize - 7
+        );
+        assert_eq!(
+            categories.get_categories(-6).len(),
+            TOTAL_CATEGORIES as usize - 6
+        );
+        assert_eq!(
+            categories.get_categories(-5).len(),
+            TOTAL_CATEGORIES as usize - 5
+        );
+        assert_eq!(
+            categories.get_categories(-4).len(),
+            TOTAL_CATEGORIES as usize - 4
+        );
+        assert_eq!(
+            categories.get_categories(-3).len(),
+            TOTAL_CATEGORIES as usize - 3
+        );
+        assert_eq!(
+            categories.get_categories(-2).len(),
+            TOTAL_CATEGORIES as usize - 2
+        );
+        assert_eq!(
+            categories.get_categories(-1).len(),
+            TOTAL_CATEGORIES as usize - 1
+        );
+        assert_eq!(categories.get_categories(0).len(), 0);
         assert_eq!(categories.get_categories(1).len(), 1);
         assert_eq!(categories.get_categories(2).len(), 2);
         assert_eq!(categories.get_categories(3).len(), 3);
+        assert_eq!(categories.get_categories(4).len(), 4);
+        assert_eq!(categories.get_categories(5).len(), 5);
+        assert_eq!(categories.get_categories(6).len(), 6);
+        assert_eq!(categories.get_categories(7).len(), 7);
+        assert_eq!(categories.get_categories(8).len(), 8);
+        assert_eq!(categories.get_categories(9).len(), 9);
+        assert_eq!(categories.get_categories(10).len(), 10);
+        assert_eq!(categories.get_categories(11).len(), 11);
+        assert_eq!(categories.get_categories(12).len(), 12);
+        assert_eq!(categories.get_categories(13).len(), 13);
+        assert_eq!(
+            categories.get_categories(14).len(),
+            TOTAL_CATEGORIES as usize
+        );
+        assert_eq!(
+            categories.get_categories(15).len(),
+            TOTAL_CATEGORIES as usize
+        );
     }
 
     #[test]
