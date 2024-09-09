@@ -5,7 +5,7 @@ unblocked.
 
 This API also uses the same data as the alternative that was suggested by Springboard.
 
-This application is deployed on Heroku at `https://jeopardy-api-08c22fd2e683.herokuapp.com/`. Please read below to find the endpoints used with the application ( there is no endpoint at the root ).
+This application is deployed as a microservice at `https://jeo.letz.dev/`. Please read below to find the endpoints used with the application ( there is no endpoint at the root ).
 
 
 ## API Structure
@@ -25,39 +25,39 @@ In addition, there are four endpoints:
 ## How to query the API via Curl
 To get all category data, you can run this curl:
 ```
-curl -v https://jeopardy-api-08c22fd2e683.herokuapp.com/api/categories
+curl -v https://jeo.letz.dev/api/categories
 ```
 
 To get data for a particular amount of categories, you can add the count parameter, like this:
 ```
-curl -v https://jeopardy-api-08c22fd2e683.herokuapp.com/api/categories?count=5
+curl -v https://jeo.letz.dev/api/categories?count=5
 ```
 This will return the first five categories ( there are fourteen ).
 
 
 To get data for a particular category, you can run this curl request:
 ```
-curl -v https://jeopardy-api-08c22fd2e683.herokuapp.com/api/categories/11
+curl -v https://jeo.letz.dev/api/categories/11
 ```
 This will provide category details for the category with the ID of 11.
 
 
 To get all category details (clues, questions, answers, etc.), you can run:
 ```
-curl -v https://jeopardy-api-08c22fd2e683.herokuapp.com/api/details
+curl -v https://jeo.letz.dev/api/details
 ```
 
 
 Finally, to get details for a specific category ID, you can run:
 ```
-curl -v https://jeopardy-api-08c22fd2e683.herokuapp.com/api/details/3
+curl -v https://jeo.letz.dev/api/details/3
 ```
 This will give you the clues, questions, and answers for all questions under ID #3.
 
 
 ## How to query this via JavaScript's Axios Library
 ```
-const baseUrl = "https://jeopardy-api-08c22fd2e683.herokuapp.com";
+const baseUrl = "https://jeo.letz.dev";
 axios.get(`${baseUrl}/api/categories`, {
   headers: {
     'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ You can, of course, use JavaScript's `async / await` syntax as well.
 
 ## How to query this via JavaScript's Fetch API
 ```
-fetch('https://jeopardy-api-08c22fd2e683.herokuapp.com/api/categories?count=5', {
+fetch('https://jeo.letz.dev/api/categories?count=5', {
   headers: {
     'Content-Type': 'application/json'
   }
@@ -95,8 +95,9 @@ As this is intended to be a simple app, no database connection is needed. The ca
 
 To run the backend for this application, you need to:
 1. Have Rust installed. If you do not have Rust installed, please see the installation instructions [here](https://www.rust-lang.org/tools/install) for more information.
-2. Clone this repository via `git clone git@github.com:JB0925/jeopardy-api.git`.
+2. Clone this repository via `git clone git@github.com:Blinter/jeopardy-api.git`.
 3. Simply run `cargo run`. This will build the project and create a socket that binds on port 8000, where it listens for and accepts connections. You can then make the same requests as above; the base url would now be `http://127.0.0.1:8000`.
+4. Additionally, when running `cargo run`, if you would like to host this yourself, you can change the bind IP on Rocket using `ROCKET_ADDRESS=0.0.0.0`, or the IP address of your choosing.
 
 
 ## How to run the tests
