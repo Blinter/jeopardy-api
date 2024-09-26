@@ -5,7 +5,7 @@ unblocked.
 
 This API also uses the same data as the alternative that was suggested by Springboard.
 
-This application is deployed as a microservice at `https://jeo.letz.dev/`. Please read below to find the endpoints used with the application ( there is no endpoint at the root ).
+This application is deployed as a microservice at `https://jeo.letz.dev/`. Please read below to find the endpoints used with the application (there is no endpoint at the root).
 
 
 ## API Structure
@@ -14,16 +14,22 @@ There are two main sections to this API:
 2. Category Details - clues, questions, and answers associated with each category ID.
 
 In addition, there are four endpoints:
-1. GET - "/api/categories?count=" - Gets `count` number of categories. Note that if the count is left off, it will return all categories.
+1. GET - "/api/categories?count=" - Gets `count` number of categories. Note that if the count is left off, it will **only** return the first 5 categories.
 2. GET - "/api/categories/<_id>" - Gets a specific category.
 3. GET - "/api/details" - Gets all category details (questions, answers, etc.).
 4. GET - "/api/details/<category_id>" - Gets all questions/clues for a particular category.
 
-**NOTE:** The provided data had category IDs of [2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], so please choose accordingly.
+**NOTE:** The provided data only had category IDs of [2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], so please choose accordingly.
 
 
 ## How to query the API via Curl
-To get all category data, you can run this curl:
+
+To get category data for all categories (out of data available), you can run this curl:
+```
+curl -v https://jeo.letz.dev/api/categories?count=14
+```
+
+To get category data for only the first 5 categories, you can run this curl:
 ```
 curl -v https://jeo.letz.dev/api/categories
 ```
